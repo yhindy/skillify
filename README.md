@@ -18,7 +18,7 @@ Give it a name, it researches their philosophy, voice, principles, and domain ex
 
 ```bash
 # Clone into your Claude Code skills directory
-git clone https://github.com/yousef/skillify.git ~/.claude/skills/skillify
+git clone https://github.com/yhindy/skillify.git ~/.claude/skills/skillify
 ```
 
 ## Usage
