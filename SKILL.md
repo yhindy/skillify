@@ -93,8 +93,8 @@ Before building anything, present your findings to the user:
 
 ### Proposed Skill Structure
 - /[slug] — home dashboard
-- /[skill-1] — [description]
-- /[skill-2] — [description]
+- /[slug]-[skill-1] — [description]
+- /[slug]-[skill-2] — [description]
 - ...
 ```
 
@@ -173,9 +173,11 @@ allowed-tools:
 
 ### 3c: Sub-skill SKILL.md files
 
-For each sub-skill, create `[slug]/[skill-name]/SKILL.md` with:
+For each sub-skill, create `[slug]/[slug]-[skill-name]/SKILL.md` with:
 
-1. **Frontmatter** with name, version, description, allowed-tools
+**IMPORTANT**: All sub-skill names MUST be prefixed with the person's slug to avoid collisions (e.g., `/musk-first-principles`, not `/first-principles`). The directory name, frontmatter `name` field, and symlink must all use the `[slug]-[skill-name]` format.
+
+1. **Frontmatter** with name (prefixed with slug), version, description, allowed-tools
 2. **Voice directive** — a paragraph that tells Claude how to channel this person. Include:
    - How they talk (direct quotes as examples)
    - What they NEVER do (anti-patterns)
@@ -198,7 +200,7 @@ Create symlinks so Claude Code discovers each sub-skill:
 
 ```bash
 cd ~/.claude/skills
-for skill_dir in [slug]/*/; do
+for skill_dir in [slug]/[slug]-*/; do
   skill_name=$(basename "$skill_dir")
   if [ -f "$skill_dir/SKILL.md" ] && [ ! -L "$skill_name" ]; then
     ln -s "$skill_dir" "$skill_name"
@@ -206,6 +208,8 @@ for skill_dir in [slug]/*/; do
   fi
 done
 ```
+
+Note: Sub-skill directories are already named `[slug]-[skill-name]`, so the symlink names will naturally include the namespace prefix.
 
 ---
 
@@ -218,7 +222,7 @@ Read the current `~/.claude/CLAUDE.md`, find the skills section, and add an entr
 ```markdown
 ### [slug] ([Person]'s [domain] skills)
 Location: `~/.claude/skills/[slug]`
-Available slash commands: /[slug], /[skill-1], /[skill-2], ...
+Available slash commands: /[slug], /[slug]-[skill-1], /[slug]-[skill-2], ...
 [One-line description of what the skill system covers.]
 ```
 
@@ -234,7 +238,7 @@ ls -la ~/.claude/skills/[slug]/
 
 echo ""
 echo "=== Sub-skills ==="
-for d in ~/.claude/skills/[slug]/*/; do
+for d in ~/.claude/skills/[slug]/[slug]-*/; do
   if [ -f "$d/SKILL.md" ]; then
     name=$(basename "$d")
     echo "  /$name"
@@ -250,7 +254,7 @@ echo "=== ETHOS.md preview ==="
 head -20 ~/.claude/skills/[slug]/ETHOS.md
 ```
 
-Tell the user: "Start a new Claude Code session, then try `/[slug]` to see the dashboard or `/[skill-name]` to test a specific skill."
+Tell the user: "Start a new Claude Code session, then try `/[slug]` to see the dashboard or `/[slug]-[skill-name]` to test a specific skill."
 
 ---
 
