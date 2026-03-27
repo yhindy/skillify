@@ -60,7 +60,7 @@ Search strategy:
 - Search for `"[Name]" book recommendations OR influences`
 - If they wrote a book, search for summaries and key concepts
 
-Use the Agent tool to run multiple research searches in parallel.
+Use the Agent tool to run multiple research searches in parallel. **Use a smaller model** (e.g., `model: "haiku"`) for research agents — they're doing web searching and summarization, not reasoning-heavy work.
 
 **Collect at least 10 direct quotes** that capture their voice. You need these for the voice resolver.
 
@@ -177,7 +177,7 @@ For each sub-skill, create `[slug]/[slug]-[skill-name]/SKILL.md` with:
 
 **IMPORTANT**: All sub-skill names MUST be prefixed with the person's slug to avoid collisions (e.g., `/musk-first-principles`, not `/first-principles`). The directory name, frontmatter `name` field, and symlink must all use the `[slug]-[skill-name]` format.
 
-1. **Frontmatter** with name (prefixed with slug), version, description, allowed-tools
+1. **Frontmatter** with name (prefixed with slug), version, description, `disable-model-invocation: true`, and allowed-tools. The `disable-model-invocation` flag keeps sub-skills out of the context window until explicitly invoked — only the root `/[slug]` dashboard should be auto-discoverable.
 2. **Voice directive** — a paragraph that tells Claude how to channel this person. Include:
    - How they talk (direct quotes as examples)
    - What they NEVER do (anti-patterns)
