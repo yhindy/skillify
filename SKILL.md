@@ -1,24 +1,12 @@
 ---
 name: skillify
-version: 0.1.0
 description: |
   MANUAL TRIGGER ONLY: invoke only when user types /skillify.
   Turn any public figure into a Claude Code skill system. Researches the person's
   philosophy, principles, voice, and domain expertise, then generates a complete
-  skill directory with ETHOS.md, SKILL.md templates, and sub-skills. Restricted
-  to public figures with searchable public content. Use when asked to "make a skill
-  from [person]", "encode [person]", "skillify [person]", or "turn [person] into a skill".
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Agent
-  - AskUserQuestion
-  - WebSearch
-  - WebFetch
+  skill directory with ETHOS.md, SKILL.md templates, and sub-skills.
+allowed-tools: Bash Read Write Edit Grep Glob Agent AskUserQuestion WebSearch WebFetch
+disable-model-invocation: true
 ---
 
 # /skillify — Turn a Public Figure Into a Skill
